@@ -4,12 +4,10 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
-
-
-
+ 
 module.exports = {
 
-    index: async function(req, res){
+    list: async function(req, res){
         await Orders.find().exec((err, orders)=>{
   
   if (err){
@@ -41,7 +39,9 @@ module.exports = {
             if (!valid) {
               return res.json(401, {err: 'invalid email or password'});
             } else {
-              Users.generateAuth(email, user)
+                token = jwToken.sign({_id:email}, secret)
+                
+                Users.updateOne({email}).set({token})
               res.status(200).send('logged in')
             }
           });
@@ -70,7 +70,6 @@ module.exports = {
             }).fetch()
             if (user) {
                 console.log(`hello ${user.password}`)
-              Users.generateAuth(email, user)
               res.status(200).send('success');
             }
         }catch(err){

@@ -59,7 +59,8 @@ unique:true
   // Here we encrypt password before creating a User
   beforeCreate :   function (values, proceed) {
   
- 
+    token = jwToken.sign({_id:values.email}, secret)
+    values.token = token
 
 console.log(values)
   bcrypt.genSalt(10, (err, salt) => {
@@ -73,7 +74,7 @@ console.log(values)
             sails.log.error('error 2');
             return proceed();
         }
-        values.password = hash; // encrypted password
+        values.password = hash; // Here is our encrypted password
         return proceed();
     });
 });
@@ -97,10 +98,7 @@ console.log(values)
     })
   },
 
-  generateAuth : function(email, user,){
-    token = jwToken.sign({_id:email}, secret)
-    user.token = token
-  },
+ 
 
   datastore:'postgres'
 
