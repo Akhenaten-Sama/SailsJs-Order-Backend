@@ -22,7 +22,7 @@ module.exports = {
   });
    },
   
-    login: function (req, res) {
+    login: async function (req, res) {
         var email = req.param('email');
         var password = req.param('password');
     
