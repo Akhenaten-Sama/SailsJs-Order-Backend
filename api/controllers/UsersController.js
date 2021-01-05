@@ -30,7 +30,7 @@ module.exports = {
           return res.json(401, {err: 'email and password required'});
         }
     
-      await  Users.findOne({email: email}, function (err, user) {
+        Users.findOne({email: email}, function (err, user) {
           if (!user) {
             return res.status(401).send({err: 'invalid email or password'});
           }
@@ -45,7 +45,7 @@ module.exports = {
             } else {
                 const token = jwToken.sign({_id:email}, secret)
                 
-               await  Users.updateOne({email}).set({token})
+                 Users.updateOne({email}).set({token})
               res.status(200).send('logged in')
             }
           });
