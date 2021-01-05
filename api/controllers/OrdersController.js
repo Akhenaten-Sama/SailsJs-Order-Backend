@@ -14,19 +14,6 @@
 
 module.exports = {
 
-    
-
-  
-list: async function(req, res){
-      await Orders.find().exec((err, orders)=>{
-
-if (err){
-    res.status(500).send({error: 'Database error'});
-}  
-res.view('pages/list', {orders:orders})
-
-});
- },
 
 
 

@@ -8,6 +8,8 @@
  * https://sailsjs.com/anatomy/config/routes-js
  */
 
+const UsersController = require("../api/controllers/UsersController")
+
 module.exports.routes = {
 
   /***************************************************************************
@@ -19,8 +21,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': { view: 'pages/homepage' },
-   '/list' :{view: 'pages/list'},
+  '/': 'UsersController.index' ,
    'POST /login': 'UsersController.login' ,
   'POST /signup':  'UsersController.signup',
   'POST /orders': 'OrdersController.create',

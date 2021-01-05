@@ -8,6 +8,17 @@
 
 
 module.exports = {
+
+    index: async function(req, res){
+        await Orders.find().exec((err, orders)=>{
+  
+  if (err){
+      res.status(500).send({error: 'Database error'});
+  }  
+  res.view('pages/list', {orders:orders})
+  
+  });
+   },
   
     login: function (req, res) {
         var email = req.param('email');
@@ -59,8 +70,8 @@ module.exports = {
             }).fetch()
             if (user) {
                 console.log(`hello ${user.password}`)
-              //Users.generateAuth()
-              res.status(200).send('sucess');
+              Users.generateAuth(email, user)
+              res.status(200).send('success');
             }
         }catch(err){
             res.status(401).send(err)

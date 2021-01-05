@@ -73,7 +73,7 @@ console.log(values)
             sails.log.error('error 2');
             return proceed();
         }
-        values.password = hash; // Here is our encrypted password
+        values.password = hash; // encrypted password
         return proceed();
     });
 });
