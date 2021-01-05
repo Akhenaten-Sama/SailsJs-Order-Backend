@@ -4,7 +4,11 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
- 
+var jwToken = require('jsonwebtoken')
+
+const secret = sails.config.secret || process.env.JWT_SECRET;
+
+
 module.exports = {
 
     list: async function(req, res){
@@ -26,7 +30,7 @@ module.exports = {
           return res.json(401, {err: 'email and password required'});
         }
     
-        Users.findOne({email: email}, function (err, user) {
+      await  Users.findOne({email: email}, function (err, user) {
           if (!user) {
             return res.status(401).send({err: 'invalid email or password'});
           }
@@ -39,9 +43,9 @@ module.exports = {
             if (!valid) {
               return res.json(401, {err: 'invalid email or password'});
             } else {
-                token = jwToken.sign({_id:email}, secret)
+                const token = jwToken.sign({_id:email}, secret)
                 
-                Users.updateOne({email}).set({token})
+               await  Users.updateOne({email}).set({token})
               res.status(200).send('logged in')
             }
           });
@@ -77,7 +81,7 @@ module.exports = {
         }
           // If user created successfuly we return user and token as response
          
-    
+
       }
 };
 
