@@ -251,8 +251,8 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
      onlyAllowOrigins: [
-       'https://sailsbackend.herokuapp.com/',
-      'www.sailsbackend.herokuapp.com/',
+       'https://sailsbackend.herokuapp.com',
+      'www.sailsbackend.herokuapp.com',
      ],
 
 
